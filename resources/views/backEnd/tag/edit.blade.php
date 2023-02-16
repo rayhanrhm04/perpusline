@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit User</h4>
+                <h4 class="modal-title">Edit Tag</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -15,66 +15,27 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name" class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name_edit" placeholder="Masukan Nama">
-                                    @error('name')
+                                    <label for="name" class="form-label">Nama Tag</label>
+                                    <input type="text" name="title" class="form-control @error('name') is-invalid @enderror" id="title_edit" placeholder="Masukan Tag">
+                                    @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username_edit" placeholder="Masukan Username">
-                                    @error('username')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email_edit" placeholder="Masukan Email">
-                                    @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password_edit" placeholder="Masukan Password">
-                                    @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="name" class="form-label">Image Profile</label>
-                                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="image_edit_form" accept="image/*">
-                                    @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="role" class="form-label">Role</label>
-                                    <select name="role_id[]" id="role_id_edit" class="form-control @error('role_id') is-invalid @enderror role_id_edit is_select2" data-placeholder="Pilih Role">
+                                    <label for="username" class="form-label">Status:</label>
+                                    <select class="form-control" name="status" aria-label="Default select example">
+                                            <option value="1">Aktif</option>
+                                            <option value="2">Tidak Aktif<option>
                                     </select>
-                                    @error('role_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update changes</button>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update changes</button>
+                        </div>
                     </div>
                 </form>
             </div>

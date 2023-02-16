@@ -37,7 +37,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @can('dashboard')
         <li class="nav-item">
-          <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard*')) ? 'active' : '' }}">
+          <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('admin/dashboard*')) ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -45,8 +45,8 @@
           </a>
         </li>
         @endcan
-        <li class="nav-item {{ (request()->is('user_management*')) ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ (request()->is('user_management*')) ? 'active' : '' }}">
+        <li class="nav-item {{ (request()->is('admin/user_management*')) ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ (request()->is('admin/user_management*')) ? 'active' : '' }}">
             <i class="nav-icon fas fa-users"></i>
             <p>
               User Management
@@ -56,7 +56,7 @@
           <ul class="nav nav-treeview">
             @can('user-list')
             <li class="nav-item">
-              <a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user_management/user*')) ? 'active' : '' }}">
+              <a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('admin/user_management/user*')) ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Users</p>
               </a>
@@ -65,7 +65,7 @@
 
             @can('role-list')
             <li class="nav-item">
-              <a href="{{ route('role.index') }}" class="nav-link {{ (request()->is('user_management/role*')) ? 'active' : '' }}">
+              <a href="{{ route('role.index') }}" class="nav-link {{ (request()->is('admin/user_management/role*')) ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Role</p>
               </a>
@@ -73,24 +73,18 @@
             @endcan
           </ul>
         </li>
-        @can('price-list')
+        @can('book-list')
         <li class="nav-item">
-          <a href="{{ route('price.index') }}" class="nav-link {{ (request()->is('price/*')) ? 'active' : '' }}">
-            <i class="far fa-credit-card nav-icon"></i>
-            <p>Price List</p>
-          </a>
-        </li>
-        @endcan
-        <li class="nav-item">
-          <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard*')) ? '' : '' }}">
+          <a href="{{ route('book.index') }}" class="nav-link {{ (request()->is('admin/book*')) ? 'active' : '' }}">
             <i class="nav-icon fas fa-book"></i>
             <p>
               Book
             </p>
           </a>
         </li>
+        @endcan
         <li class="nav-item">
-          <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard*')) ?  : '' }}">
+          <a href="{{ route('tag.index') }}" class="nav-link {{ (request()->is('admin/tag*')) ? 'active' : '' }}">
             <i class="nav-icon fas fa-tag"></i>
             <p>
               Tags
@@ -98,7 +92,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard*')) ? '' : '' }}">
+          <a href="{{ route('category.index') }}" class="nav-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
             <i class="nav-icon fas fa-list"></i>
             <p>
               Category

@@ -8,9 +8,9 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="" class="nav-item nav-link">Ebook</a>
+                <a href="frontEnd/ebook" class="nav-item nav-link">Ebook</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Daftar/Login</a>
+            <a href="login" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Daftar/Login</a>
         </div>
     </nav>
     <!-- Navbar End -->

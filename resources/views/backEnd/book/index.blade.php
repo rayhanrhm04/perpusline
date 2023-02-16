@@ -5,12 +5,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Data Tag</h1>
+                <h1>Data Buku</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Tag</li>
+                    <li class="breadcrumb-item active">Books</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="row">
-                                    @can('tag-delete')
+                                    @can('category-delete')
                                     <div class="mt-2">
                                         <a href="#" class="hidden" id="btn-destroy"><i class="fa fa-trash text-red"></i></a>
                                     </div>
@@ -33,8 +33,8 @@
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                @can('tag-create')
-                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-create"><i class="nav-icon fa fa-plus"></i> Tambah Tag</button>
+                                @can('category-create')
+                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-create"><i class="nav-icon fa fa-plus"></i> Tambah Buku</button>
                                 @endcan
                             </div>
                         </div>
@@ -46,29 +46,38 @@
                                     <tr>
                                         <th><input type="checkbox" id="allCheckbox" class="form-control"></th>
                                         <th>Actions</th>
-                                        <th>Tag</th>
+                                        <th>ID Kategori</th>
+                                        <th>ID Author</th>
+                                        <th>Judul Buku</th>
+                                        <th>Deskripsi</th>
                                         <th>Status</th>
+                                        <th>Tanggal dibuat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($tags as $tag)
+                                    @forelse ($books as $book)
                                     <tr>
-                                        <td><input type="checkbox" class="form-control checbox" value="{{ $tag->id }}"></td>
+                                        <td><input type="checkbox" class="form-control checbox" value="{{ $book->id }}"></td>
                                         <td>
-                                            @can ('tag-edit')
-                                            <a href="#" class="edit" data-url="{{ route('tag.update', $tag->id) }}" data-id="{{ $tag->id }}" data-get="{{ route('tag.show', $tag->id) }}">
+                                            @can ('book-edit')
+                                            <a href="#" class="edit" data-url="{{ route('book.update', $book->id) }}" data-id="{{ $book->id }}" data-get="{{ route('book.show', $book->id) }}">
                                                 <i class="fa fa-pen mr-3 text-dark"></i>
                                             </a>
                                             @endcan
 
-                                            @can ('tag-list')
-                                            <a href="#" class="show" data-url="{{ route('tag.show', $tag->id) }}" data-id="{{ $tag->id }}">
+                                            @can ('book-list')
+                                            <a href="#" class="show" data-url="{{ route('book.show', $book->id) }}" data-id="{{ $book->id }}">
                                                 <i class="fa fa-eye text-dark"></i>
                                             </a>
                                             @endcan
                                         </td>
-                                        <td>{{ $tag->title }}</td>
-                                        <td>{!! $tag->status == 1 ? "<span class='badge badge-success'>AKTIF</span>" : "<span class='badge badge-danger'>TIDAK AKTIF</span>" !!}</td>
+                                        <td>{{ $book->category_id }}</td>
+                                        <td>{{ $book->user_id }}</td>
+                                        <td>{{ $book->author_id }}</td>
+                                        <td>{{ $book->title }}</td>
+                                        <td>{{ $book->desc }}</td>
+                                        <td>{!! $book->status == 1 ? "<span class='badge badge-success'>AKTIF</span>" : "<span class='badge badge-danger'>TIDAK AKTIF</span>" !!}</td>
+                                        <td>{{ $book->created_at }}</td>
                                     </tr>
                                     @empty
                                     <tr>
@@ -78,7 +87,7 @@
 
                                 </tbody>
                             </table>
-                            {{ $tags->links() }}
+                            {{ $books->links() }}
                         </div>
                     </div>
                 </div>
@@ -86,9 +95,9 @@
         </div>
     </div>
 </section>
-@include('backEnd.tag.create')
-@include('backEnd.tag.edit')
-@include('backEnd.tag.show')
+@include('backEnd.book.create')
+@include('backEnd.book.edit')
+@include('backEnd.book.show')
 @endsection
 
 @push('scripts')
@@ -127,7 +136,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('tag.destroy') }}",
+                            url: "{{ route('user.destroy') }}",
                             type: "POST",
                             data: {
                                 "_token": "{{ csrf_token() }}",
@@ -163,8 +172,13 @@
                 })
                 .done(function(response) {
                     if (response.status) {
+                        console.log(response.data.image_url);
+                        $("#image_show").attr("src", response.data.image_url);
                         $('#id_show').text(response.data.id);
-                        $('#title_show').text(response.data.title);
+                        $('#name_show').text(response.data.name);
+                        $('#username_show').text(response.data.username);
+                        $('#email_show').text(response.data.email);
+                        $('#role_show').text(response.data.role.name);
                         $('#log_show').text(response.data.created_at);
                         $('#modal-show').modal('show');
 
@@ -184,17 +198,20 @@
                 })
                 .done(function(response) {
                     if (response.status) {
-                        $('#title_edit').val(response.data.title);
+                        $('#name_edit').val(response.data.name);
+                        $('#username_edit').val(response.data.username);
+                        $('#email_edit').val(response.data.email);
+                        $('#password_edit').val(response.data.password);
 
-                        let option_status = "";
-                        
-                        let selected_aktif = response.data.status == 1 ? 'selected' : '';
-                        let selected_tidak_aktif = response.data.status == 2 ? 'selected' : '';
-                        option_status += "<option value='1' " + selected_aktif + ">Aktif</option>";
-                        option_status += "<option value='2' " + selected_tidak_aktif + ">Tidak Aktif</option>";
-                       
-                        $('#status_edit').html(option_status);
+                        let option_role = "";
+                        for (let i = 0; i < response.roles.length; i++) {
+                            let selected_role = response.roles[i].selected ? "selected='" + response.roles[i].selected + "'" : ""
+                            option_role += "<option value='" + response.roles[i].id + "' " + selected_role + ">" + response.roles[i].name + "</option>";
+                        }
+                        $('.role_id_edit').html(option_role);
 
+
+                        $("#image_edit").attr("src", response.data.image_url);
                         $("#form-edit").attr('action', url);
                         $('#modal-edit').modal('show');
 

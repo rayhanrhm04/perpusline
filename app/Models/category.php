@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,10 @@ class category extends Model
         'slug',
         'desc',
         'status',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:d F Y H:i',
     ];
 
 }

@@ -9,7 +9,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <img src="" class="img-responsive img-thumbnail" id="image_show">
+                    </div>
+                    <div class="col-md-6">
                         <div class="table-responsive">
                             <!-- <h5>Arsip</h5> -->
                             <table class="table table-borderless">
@@ -21,15 +24,20 @@
                                 <tr>
                                     <td>Judul</td>
                                     <td>:</td>
-                                    <td class="bold" id="title_show"></td>
+                                    <td class="bold" id="name_show"></td>
                                 </tr>
                                 <tr>
                                     <td>Deskripsi</td>
                                     <td>:</td>
-                                    <td class="bold" id="desc_show"></td>
+                                    <td class="bold" id="email_show"></td>
                                 </tr>
                                 <tr>
-                                    <td>Tanggal Dibuat </td>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td class="bold" id="role_show"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal </td>
                                     <td>:</td>
                                     <td class="bold" id="log_show"></td>
                                 </tr>

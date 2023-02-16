@@ -5,12 +5,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Data Category</h1>
+                <h1>Data Kategori</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">User</li>
+                    <li class="breadcrumb-item active">Kategori</li>
                 </ol>
             </div>
         </div>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-8">
                                 @can('category-create')
-                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-create"><i class="nav-icon fa fa-plus"></i> Tambah Category</button>
+                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-create"><i class="nav-icon fa fa-plus"></i> Tambah Kategori</button>
                                 @endcan
                             </div>
                         </div>
@@ -46,31 +46,31 @@
                                     <tr>
                                         <th><input type="checkbox" id="allCheckbox" class="form-control"></th>
                                         <th>Actions</th>
-                                        <th>Username</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Judul</th>
+                                        <th>Status</th>
+                                        <th>Tanggal dibuat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($users as $user)
+                                    @forelse ($categories as $category)
                                     <tr>
-                                        <td><input type="checkbox" class="form-control checbox" value="{{ $user->id }}"></td>
+                                        <td><input type="checkbox" class="form-control checbox" value="{{ $category->id }}"></td>
                                         <td>
                                             @can ('category-edit')
-                                            <a href="#" class="edit" data-url="{{ route('user.update', $user->id) }}" data-id="{{ $user->id }}" data-get="{{ route('user.show', $user->id) }}">
+                                            <a href="#" class="edit" data-url="{{ route('category.update', $category->id) }}" data-id="{{ $category->id }}" data-get="{{ route('category.show', $category->id) }}">
                                                 <i class="fa fa-pen mr-3 text-dark"></i>
                                             </a>
                                             @endcan
 
                                             @can ('category-list')
-                                            <a href="#" class="show" data-url="{{ route('user.show', $user->id) }}" data-id="{{ $user->id }}">
+                                            <a href="#" class="show" data-url="{{ route('category.show', $category->id) }}" data-id="{{ $category->id }}">
                                                 <i class="fa fa-eye text-dark"></i>
                                             </a>
                                             @endcan
                                         </td>
-                                        <td>{{ $user->username }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $category->title }}</td>
+                                        <td>{!! $category->status == 1 ? "<span class='badge badge-success'>AKTIF</span>" : "<span class='badge badge-danger'>TIDAK AKTIF</span>" !!}</td>
+                                        <td>{{ $category->created_at }}</td>
                                     </tr>
                                     @empty
                                     <tr>
@@ -80,7 +80,7 @@
 
                                 </tbody>
                             </table>
-                            {{ $users->links() }}
+                            {{ $categories->links() }}
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,10 @@
         </div>
     </div>
 </section>
-@include('backEnd.user_management.user.create')
-@include('backEnd.user_management.user.edit')
-@include('backEnd.user_management.user.show')
+    @include('backEnd.category.create')
+    @include('backEnd.category.edit')
+    @include('backEnd.category.show')
+    
 @endsection
 
 @push('scripts')
@@ -129,7 +130,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('user.destroy') }}",
+                            url: "{{ route('category.destroy') }}",
                             type: "POST",
                             data: {
                                 "_token": "{{ csrf_token() }}",
@@ -165,13 +166,9 @@
                 })
                 .done(function(response) {
                     if (response.status) {
-                        console.log(response.data.image_url);
-                        $("#image_show").attr("src", response.data.image_url);
                         $('#id_show').text(response.data.id);
-                        $('#name_show').text(response.data.name);
-                        $('#username_show').text(response.data.username);
-                        $('#email_show').text(response.data.email);
-                        $('#role_show').text(response.data.role.name);
+                        $('#title_show').text(response.data.title);
+                        $('#desc_show').text(response.data.desc);
                         $('#log_show').text(response.data.created_at);
                         $('#modal-show').modal('show');
 
@@ -191,22 +188,20 @@
                 })
                 .done(function(response) {
                     if (response.status) {
-                        $('#name_edit').val(response.data.name);
-                        $('#username_edit').val(response.data.username);
-                        $('#email_edit').val(response.data.email);
-                        $('#password_edit').val(response.data.password);
+                        $('#title_edit').val(response.data.title);
+                       
 
-                        let option_role = "";
-                        for (let i = 0; i < response.roles.length; i++) {
-                            let selected_role = response.roles[i].selected ? "selected='" + response.roles[i].selected + "'" : ""
-                            option_role += "<option value='" + response.roles[i].id + "' " + selected_role + ">" + response.roles[i].name + "</option>";
-                        }
-                        $('.role_id_edit').html(option_role);
-
-
-                        $("#image_edit").attr("src", response.data.image_url);
+                        let option_status = "";
+                        
+                        let selected_aktif = response.data.status == 1 ? 'selected' : '';
+                        let selected_tidak_aktif = response.data.status == 2 ? 'selected' : '';
+                        option_status += "<option value='1' " + selected_aktif + ">Aktif</option>";
+                        option_status += "<option value='2' " + selected_tidak_aktif + ">Tidak Aktif</option>";
+                       
+                        $('#status_edit').html(option_status);
                         $("#form-edit").attr('action', url);
                         $('#modal-edit').modal('show');
+
 
                     }
                 })

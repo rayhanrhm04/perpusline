@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1);
             $table->bigInteger('category_id');
             $table->text('file');
+            $table->text('cover');
             $table->bigInteger('user_id');
             $table->bigInteger('author_id');
             $table->timestamps();

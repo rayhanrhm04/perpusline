@@ -2,17 +2,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Detail User</h4>
+                <h4 class="modal-title">Detail Category</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <img src="" class="img-responsive img-thumbnail" id="image_show">
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="table-responsive">
                             <!-- <h5>Arsip</h5> -->
                             <table class="table table-borderless">
@@ -22,27 +19,12 @@
                                     <td class="bold" id="id_show"></td>
                                 </tr>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>Judul</td>
                                     <td>:</td>
-                                    <td class="bold" id="name_show"></td>
+                                    <td class="bold" id="title_show"></td>
                                 </tr>
                                 <tr>
-                                    <td>Username</td>
-                                    <td>:</td>
-                                    <td class="bold" id="username_show"></td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>:</td>
-                                    <td class="bold" id="email_show"></td>
-                                </tr>
-                                <tr>
-                                    <td>Role</td>
-                                    <td>:</td>
-                                    <td class="bold" id="role_show"></td>
-                                </tr>
-                                <tr>
-                                    <td>Log Info</td>
+                                    <td>Tanggal Dibuat </td>
                                     <td>:</td>
                                     <td class="bold" id="log_show"></td>
                                 </tr>
